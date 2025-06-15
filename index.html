@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glow Picks – TikTok Beauty Favorites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Reset and Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        color: #1a1a1a;
+        min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+        text-align: center;
+        padding: 4rem 2rem 3rem;
+        background: linear-gradient(135deg, #000000 0%, #2c2c2c 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        pointer-events: none;
+    }
+
+    header h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(45deg, #ffffff, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+        z-index: 1;
+    }
+
+    header h3 {
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #f0f0f0;
+        position: relative;
+        z-index: 1;
+    }
+
+    header p {
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Main Content */
+    main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    /* Product Grid */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    /* Product Cards */
+    .product-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 
+            0 4px 20px rgba(0, 0, 0, 0.08),
+            0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        border: 1px solid #f0f0f0;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #000000, #4a4a4a, #000000);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.15),
+            0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card:hover::before {
+        opacity: 1;
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        filter: grayscale(20%) contrast(1.1);
+    }
+
+    .product-card:hover img {
+        transform: scale(1.05);
+        filter: grayscale(0%) contrast(1.2);
+    }
+
+    .product-card h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 1.5rem 1.5rem 0.8rem;
+        color: #1a1a1a;
+        letter-spacing: -0.01em;
+    }
+
+    .product-card p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #4a4a4a;
+        margin: 0 1.5rem 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .price {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #000;
+        margin: 0 1.5rem 1.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    /* Buttons */
+    .product-card button {
+        width: calc(100% - 3rem);
+        margin: 0 1.5rem 1.5rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #000000 0%, #2c2c2c 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-card button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .product-card button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #1a1a1a 0%, #3c3c3c 100%);
+    }
+
+    .product-card button:hover::before {
+        left: 100%;
+    }
+
+    .product-card button:active {
+        transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 2rem;
+    }
+
+    footer p {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    /* Rights Notice */
+    .rights-notice {
+        background: #000;
+        color: white;
+        padding: 1.5rem 2rem;
+        text-align: center;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .rights-notice p {
+        margin: 0.5rem 0;
+        opacity: 0.9;
+        color: white;
+    }
+
+    .rights-notice .copyright {
+        font-weight: 600;
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+        
+        header {
+            padding: 3rem 1rem 2rem;
+        }
+        
+        main {
+            padding: 3rem 1rem;
+        }
+        
+        .product-card {
+            border-radius: 16px;
+        }
+        
+        .product-card img {
+            height: 250px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .product-card {
+            margin: 0 0.5rem;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+        }
+        
+        header h3 {
+            font-size: 1.3rem;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .product-card {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    .product-card:nth-child(6) { animation-delay: 0.6s; }
+    .product-card:nth-child(7) { animation-delay: 0.7s; }
+    .product-card:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Milk Makeup</h1>
+    <h3>Glow Picks</h3>
+    <p>TikTok's Favorite Makeup Products – Curated for You</p>
+  </header>
+
+  <main class="product-grid">
+    <!-- Product 1 -->
+    <div class="product-card">
+      <img src="prod-images/1-1.jpg" alt="Hydro Grip Primer">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Hydro Grip Primer with Hyaluronic Acid + Niacinamide – Hydrating Face Primer Grips Makeup for Up to 12 Hours – Silicone-Free, Lightweight Gel with Dewy Finish</p>
+      <span class="price">$38</span>
+      <button onclick="redirectToAmazon('https://amzn.to/45UtfwG')">Buy Now</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <img src="prod-images/12.jpg" alt="Cooling Water Jelly Tint">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Hydro Grip Primer with Hyaluronic Acid + Niacinamide – Hydrating Face Primer Grips Makeup for Up to 12 Hours – Silicone-Free, Lightweight Gel with Dewy Finish.</p>
+      <span class="price">$20</span>
+      <button onclick="redirectToAmazon('https://amzn.to/45oBhxR')">Buy Now</button>
+    </div>
+    <!-- Product 3 -->
+    <div class="product-card">
+      <img src="prod-images/3.jpg" alt="Sculpt Stick">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Hydro Grip Set + Refresh Spray with Hyaluronic Acid – Sets Makeup + Hydrates Skin for Up to 12 Hours – Long-Lasting, Alcohol-Free Facial Mist for Dewy, Radiant Skin</p>
+      <span class="price">$24</span>
+      <button onclick="redirectToAmazon('https://amzn.to/3HFG3x0')">Buy Now</button>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card">
+      <img src="prod-images/4.jpg" alt="Sculpt Stick">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Sculpt Stick, Toasted (Fair to Light) - 0.19 oz - Cool-Toned Cream Contour - Buildable, Blendable Colour - 1,000+ Swipes - Non-Comedogenic - Vegan, Cruelty Free</p>
+      <span class="price">$24</span>
+      <button onclick="redirectToAmazon('https://amzn.to/4e3At3q')">Buy Now</button>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product-card">
+      <img src="prod-images/7.webp" alt="Lip & Cheek">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Lip & Cheek - Werk</p>
+      <span class="price">$24</span>
+      <button onclick="redirectToAmazon('https://amzn.to/4e08Fx0')">Buy Now</button>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product-card">
+      <img src="prod-images/9.jpg" alt="KUSH Mascara">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup KUSH High Volume Mascara</p>
+      <span class="price">$15</span>
+      <button onclick="redirectToAmazon('https://amzn.to/3HFoX2c')">Buy Now</button>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product-card">
+      <img src="prod-images/10.jpg" alt="RISE Mascara">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup RISE Mascara - Lifts, Lengthens, Curls & Adds Volume - Weightless Formula - Conditions & Strengthens - Vegan, Cruelty Free</p>
+      <span class="price">$28</span>
+      <button onclick="redirectToAmazon('https://amzn.to/45jfkjE')">Buy Now</button>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product-card">
+      <img src="prod-images/11.jpg" alt="Infinity Eyeliner">
+      <h2>Milk Makeup</h2>
+      <p>Milk Makeup Infinity Long Wear Eyeliner - Twist-Up Design, Built-In Sharpener & Soft Blender Tip - Up to 12-Hour Wear - Waterproof - Vegan, Cruelty Free</p>
+      <span class="price">$22</span>
+      <button onclick="redirectToAmazon('https://amzn.to/3G4GUXs')">Buy Now</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>As an Amazon Associate, I earn from qualifying purchases.</p>
+  </footer>
+
+  <div class="rights-notice">
+    <p class="copyright">© 2025 Glow Picks. All Rights Reserved.</p>
+    <p>No cookies are stored or tracked by this website. We respect your privacy.</p>
+    <p>This website is for informational purposes only. Product availability and prices may vary.</p>
+  </div>
+
+  <script>
+    function redirectToAmazon(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
